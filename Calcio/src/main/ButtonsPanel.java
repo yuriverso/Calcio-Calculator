@@ -25,6 +25,7 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 	final int WIDTH = 250;
 	final int HEIGHT = 300;
 	public String previousNumberString;
+	boolean equalsPressed = false;
 	double number1, number2;
 	String operation;
 	public CalcioPanel calcioPanel;
@@ -33,15 +34,16 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 	
 	JButton button1, button2, button3, button4,
 			button5, button6, button7, button8,
-			button9, button0, buttonPlus, buttonMinus,
-			buttonTimes, buttonDivision, buttonEquals,
-			buttonPercentage, buttonSqrt, buttonPow,
-			buttonInverse, buttonC, buttonBackspace, buttonPoint;
+			button9, button0, buttonPoint,
+			buttonPlus, buttonMinus, buttonTimes,
+			buttonDivision, buttonEquals, buttonPercentage,
+			buttonSqrt, buttonPow, buttonInverse,
+			buttonC, buttonBackspace;
 	
 	ButtonsPanel(CalcioPanel calcioPanel){
 		this.calcioPanel = calcioPanel;
 		
-		previousNumberString = calcioPanel.numberScreen.numberLabel.getText();
+		previousNumberString = calcioPanel.numberScreen.numberToDisplay;
 		
 		this.setBounds(20, 80, WIDTH, HEIGHT);
 		this.setLayout(null);
@@ -63,7 +65,6 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 			button1Image = ImageIO.read(getClass().getResourceAsStream("/img/1_no_click.png"));
 			button1PressedImage = ImageIO.read(getClass().getResourceAsStream("/img/1_click.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -170,11 +171,12 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 	
 	public void configureButtonsArray() {
 		JButton[] buttons = {button1, button2, button3, button4,
-				button5, button6, button7, button8, button0,
-				button9, buttonPlus, buttonMinus, buttonPoint,
-				buttonTimes, buttonDivision, buttonEquals,
-				buttonC, buttonBackspace, buttonPercentage,
-				buttonSqrt, buttonPow, buttonInverse};
+				button5, button6, button7, button8,
+				button9, button0, buttonPoint,
+				buttonPlus, buttonMinus, buttonTimes,
+				buttonDivision, buttonEquals, buttonPercentage,
+				buttonSqrt, buttonPow, buttonInverse,
+				buttonC, buttonBackspace};
 		
 		for(JButton b : buttons) {
 			b.setFocusable(false);
@@ -191,226 +193,177 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == button1) {
-			if(calcioPanel.numberScreen.numberLabel.getText() != "0") {
-				String typedNumber = calcioPanel.numberScreen.numberLabel.getText()+"1";
-				calcioPanel.numberScreen.numberLabel.setText(typedNumber);
-			}else {
-				calcioPanel.numberScreen.numberLabel.setText("1");
-			}
+			clickNumButton("1");
 		}
 		if (e.getSource() == button2) {
-			if(calcioPanel.numberScreen.numberLabel.getText() != "0") {
-				String typedNumber = calcioPanel.numberScreen.numberLabel.getText()+"2";
-				calcioPanel.numberScreen.numberLabel.setText(typedNumber);
-			}else {
-				calcioPanel.numberScreen.numberLabel.setText("2");
-			}
+			clickNumButton("2");
 		}
 		if (e.getSource() == button3) {
-			if(calcioPanel.numberScreen.numberLabel.getText() != "0") {
-				String typedNumber = calcioPanel.numberScreen.numberLabel.getText()+"3";
-				calcioPanel.numberScreen.numberLabel.setText(typedNumber);
-			}else {
-				calcioPanel.numberScreen.numberLabel.setText("3");
-			}
+			clickNumButton("3");
 		}
 		if (e.getSource() == button4) {
-			if(calcioPanel.numberScreen.numberLabel.getText() != "0") {
-				String typedNumber = calcioPanel.numberScreen.numberLabel.getText()+"4";
-				calcioPanel.numberScreen.numberLabel.setText(typedNumber);
-			}else {
-				calcioPanel.numberScreen.numberLabel.setText("4");
-			}
+			clickNumButton("4");
 		}
 		if (e.getSource() == button5) {
-			if(calcioPanel.numberScreen.numberLabel.getText() != "0") {
-				String typedNumber = calcioPanel.numberScreen.numberLabel.getText()+"5";
-				calcioPanel.numberScreen.numberLabel.setText(typedNumber);
-			}else {
-				calcioPanel.numberScreen.numberLabel.setText("5");
-			}
+			clickNumButton("5");
 		}
 		if (e.getSource() == button6) {
-			if(calcioPanel.numberScreen.numberLabel.getText() != "0") {
-				String typedNumber = calcioPanel.numberScreen.numberLabel.getText()+"6";
-				calcioPanel.numberScreen.numberLabel.setText(typedNumber);
-			}else {
-				calcioPanel.numberScreen.numberLabel.setText("6");
-			}
+			clickNumButton("6");
 		}
 		if (e.getSource() == button7) {
-			if(calcioPanel.numberScreen.numberLabel.getText() != "0") {
-				String typedNumber = calcioPanel.numberScreen.numberLabel.getText()+"7";
-				calcioPanel.numberScreen.numberLabel.setText(typedNumber);
-			}else {
-				calcioPanel.numberScreen.numberLabel.setText("7");
-			}
+			clickNumButton("7");
 		}
 		if (e.getSource() == button8) {
-			if(calcioPanel.numberScreen.numberLabel.getText() != "0") {
-				String typedNumber = calcioPanel.numberScreen.numberLabel.getText()+"8";
-				calcioPanel.numberScreen.numberLabel.setText(typedNumber);
-			}else {
-				calcioPanel.numberScreen.numberLabel.setText("8");
-			}
+			clickNumButton("8");
 		}
 		if (e.getSource() == button9) {
-			if(calcioPanel.numberScreen.numberLabel.getText() != "0") {
-				String typedNumber = calcioPanel.numberScreen.numberLabel.getText()+"9";
-				calcioPanel.numberScreen.numberLabel.setText(typedNumber);
-			}else {
-				calcioPanel.numberScreen.numberLabel.setText("9");
-			}
+			clickNumButton("9");
 		}
 		if (e.getSource() == button0) {
-			
-			if(calcioPanel.numberScreen.numberLabel.getText() != "0") {
-				String typedNumber = calcioPanel.numberScreen.numberLabel.getText()+"0";
-				calcioPanel.numberScreen.numberLabel.setText(typedNumber);
-			}else {
-				calcioPanel.numberScreen.numberLabel.setText("0");
-			}
+			clickNumButton("0");
 		}
 		if(e.getSource() == buttonPoint) {
-			String typedNumber = calcioPanel.numberScreen.numberLabel.getText();
-			if(!hasPoint(typedNumber)) {
-				typedNumber+=".";
-				calcioPanel.numberScreen.numberLabel.setText(typedNumber);
+			if(!hasPoint(calcioPanel.numberScreen.numberToDisplay)) {
+				clickNumButton(".");
 			}
 			
 			//boolean teste = hasComma("0001,2");
 			//System.out.println(teste);
 		}
 		if (e.getSource() == buttonC) {
-			if(calcioPanel.numberScreen.numberLabel.getText() != "0") {
-				calcioPanel.numberScreen.numberLabel.setText("0");
+			if(calcioPanel.numberScreen.numberToDisplay != "0") {
+				calcioPanel.numberScreen.cleanScreen();
+				calcioPanel.numberScreen.numberToDisplay = "0";
+				drawNumbers("0");
 				previousNumberString = "0";
 				number1 = 0;
 				number2 = 0;
 			}
 		}
 		if (e.getSource() == buttonBackspace) {
-			if(calcioPanel.numberScreen.numberLabel.getText() != "0") {
-				String number = calcioPanel.numberScreen.numberLabel.getText();
+			if(calcioPanel.numberScreen.numberToDisplay != "0") {
+				String number = calcioPanel.numberScreen.numberToDisplay;
 				String number2 = "";
 				for(int i = 0; i<number.length()-1; i++) {
 					number2 += number.charAt(i);
 				}
-				calcioPanel.numberScreen.numberLabel.setText(number2);
-				if(calcioPanel.numberScreen.numberLabel.getText() == "") {
-					calcioPanel.numberScreen.numberLabel.setText("0");
+				calcioPanel.numberScreen.numberToDisplay = number2;
+				calcioPanel.numberScreen.cleanScreen();
+				drawNumbers(number2);
+				if(calcioPanel.numberScreen.numberToDisplay == "") {
+					calcioPanel.numberScreen.numberToDisplay = "0";
+					calcioPanel.numberScreen.cleanScreen();
+					drawNumbers("0");
 				}
+				
 			}
 		}
-		if (e.getSource() == buttonPlus && calcioPanel.numberScreen.numberLabel.getText() != "") {
+		if (e.getSource() == buttonPlus && calcioPanel.numberScreen.numberToDisplay != "") {
 			setOperation("+");
 			
 		}
-		if (e.getSource() == buttonMinus && calcioPanel.numberScreen.numberLabel.getText() != "") {
-			number2 = 0;
-			operation = "-";
-			previousNumberString = calcioPanel.numberScreen.numberLabel.getText();
-			calcioPanel.numberScreen.numberLabel.setText("");
+		if (e.getSource() == buttonMinus && calcioPanel.numberScreen.numberToDisplay != "") {
+			setOperation("-");
 			
 		}
 		
 		// times
-		if(e.getSource() == buttonTimes && calcioPanel.numberScreen.numberLabel.getText() != "") {
-			number2 = 0;
-			operation = "x";
-			previousNumberString = calcioPanel.numberScreen.numberLabel.getText();
-			calcioPanel.numberScreen.numberLabel.setText("");
+		if(e.getSource() == buttonTimes && calcioPanel.numberScreen.numberToDisplay != "") {
+			setOperation("x");
 			
 		}
 		// division
-		if(e.getSource() == buttonDivision && calcioPanel.numberScreen.numberLabel.getText() != "") {
-			number2 = 0;
-			operation = "/";
-			previousNumberString = calcioPanel.numberScreen.numberLabel.getText();
-			calcioPanel.numberScreen.numberLabel.setText("");
+		if(e.getSource() == buttonDivision && calcioPanel.numberScreen.numberToDisplay != "") {
+			setOperation("/");
 		}
 		
 		// percentage
-		if(e.getSource() == buttonPercentage && calcioPanel.numberScreen.numberLabel.getText() != "") {
-			number2 = 0;
-			operation = "%";
-			previousNumberString = calcioPanel.numberScreen.numberLabel.getText();
-			calcioPanel.numberScreen.numberLabel.setText("");
+		if(e.getSource() == buttonPercentage && calcioPanel.numberScreen.numberToDisplay != "") {
+			setOperation("%");
 		}
 		
 		// square root
-		if(e.getSource() == buttonSqrt && calcioPanel.numberScreen.numberLabel.getText() != "") {
-			number2 = 0;
-			operation = "sqrt";
-			previousNumberString = calcioPanel.numberScreen.numberLabel.getText();
-			calcioPanel.numberScreen.numberLabel.setText("");
+		if(e.getSource() == buttonSqrt && calcioPanel.numberScreen.numberToDisplay != "") {
+			setOperation("sqrt");
+			buttonEquals.doClick();
 		}
 		
 		// power
-		if(e.getSource() == buttonPow && calcioPanel.numberScreen.numberLabel.getText() != "") {
-			number2 = 0;
-			operation = "pow";
-			previousNumberString = calcioPanel.numberScreen.numberLabel.getText();
-			calcioPanel.numberScreen.numberLabel.setText("");
+		if(e.getSource() == buttonPow && calcioPanel.numberScreen.numberToDisplay != "") {
+			setOperation("pow");
 		}
 		
 		// inverse
-		if(e.getSource() == buttonInverse && calcioPanel.numberScreen.numberLabel.getText() != "") {
-			number2 = 0;
-			operation = "inv";
-			previousNumberString = calcioPanel.numberScreen.numberLabel.getText();
-			calcioPanel.numberScreen.numberLabel.setText("");
+		if(e.getSource() == buttonInverse && calcioPanel.numberScreen.numberToDisplay != "") {
+			setOperation("inv");
 		}
 		
 		if (e.getSource() == buttonEquals) {
+			System.out.println(calcioPanel.numberScreen.numberToDisplay);
+			equalsPressed = true;
 			number1 = Double.valueOf(previousNumberString);
 			if(operation != null) {
 				switch (operation){
 				case "+":
-					if(number2 == 0 && calcioPanel.numberScreen.numberLabel.getText() != "") {
-						number2 = Double.valueOf(calcioPanel.numberScreen.numberLabel.getText());
+					if(number2 == 0 && calcioPanel.numberScreen.numberToDisplay != "") {
+						number2 = Double.valueOf(calcioPanel.numberScreen.numberToDisplay);
 					}
 					number1+=number2;
 					previousNumberString = String.valueOf(number1);
 					break;
 				case "-":
-					if(number2 == 0 && calcioPanel.numberScreen.numberLabel.getText() != "") {
-						number2 = Double.valueOf(calcioPanel.numberScreen.numberLabel.getText());
+					if(number2 == 0 && calcioPanel.numberScreen.numberToDisplay != "") {
+						number2 = Double.valueOf(calcioPanel.numberScreen.numberToDisplay);
 					}
 					number1-=number2;
 					previousNumberString = String.valueOf(number1);
 					break;
 				case "x":
-					if(number2 == 0 && calcioPanel.numberScreen.numberLabel.getText() != "") {
-						number2 = Double.valueOf(calcioPanel.numberScreen.numberLabel.getText());
+					if(number2 == 0 && calcioPanel.numberScreen.numberToDisplay != "") {
+						number2 = Double.valueOf(calcioPanel.numberScreen.numberToDisplay);
 					}
 					number1*=number2;
 					previousNumberString = String.valueOf(number1);
 					break;
 				case "/":
-					if(number2 == 0 && calcioPanel.numberScreen.numberLabel.getText() != "") {
-						number2 = Double.valueOf(calcioPanel.numberScreen.numberLabel.getText());
+					if(number2 == 0 && calcioPanel.numberScreen.numberToDisplay != "") {
+						number2 = Double.valueOf(calcioPanel.numberScreen.numberToDisplay);
 					}
 					number1/=number2;
 					previousNumberString = String.valueOf(number1);
 					break;
 				case "%":
+					if(number2 == 0 && calcioPanel.numberScreen.numberToDisplay != "") {
+						number2 = Double.valueOf(calcioPanel.numberScreen.numberToDisplay);
+					}
+					number1 = number1/100 * number2;
 					break;
 				case "sqrt":
+					number1 = Double.valueOf(previousNumberString);
+					number1 = Math.sqrt(number1);
+					previousNumberString = String.valueOf(number1);
 					break;
 				case "pow":
+					if(number2 == 0 && calcioPanel.numberScreen.numberToDisplay != "") {
+						number2 = Double.valueOf(calcioPanel.numberScreen.numberToDisplay);
+					}
+					number1 = Math.pow(number1, number2);
 					break;
 				case "inv":
+					number1 = 1/number1;
 					break;
 			}
 				String displayNumber = String.valueOf(number1);
 				//calcioPanel.numberScreen.numberLabel.setText((String.format("%.10g%n", number1).replace(',', '.')));
 				if(displayNumber != "NaN") {
-					displayNumber = String.format("%.10g%n", number1).replace(',', '.');
-					System.out.println(formatNumber(displayNumber));
+					//displayNumber = String.format("%.2g%n", number1).replace(',', '.');
+					//System.out.println(formatNumber(displayNumber));
 					// to double and then to string
-					char[] chararray = displayNumber.toCharArray();
-					calcioPanel.numberScreen.numberLabel.setText(String.valueOf(displayNumber));
+					//char[] chararray = displayNumber.toCharArray();
+					//calcioPanel.numberScreen.numberLabel.setText(String.valueOf(displayNumber));
+					calcioPanel.numberScreen.numberToDisplay = displayNumber;
+					System.out.println(calcioPanel.numberScreen.numberToDisplay);
+					drawNumbers(displayNumber);
 				}
 				
 			}
@@ -419,6 +372,22 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		
 	}
 	
+	
+	public void drawNumbers(String number) {
+		char[] numberArray = number.toCharArray();
+		for(int i = 0;i<numberArray.length;i++) {
+			if(i<10) {
+				calcioPanel.numberScreen.paintNumber(numberArray[i], i);
+			}
+			else {
+				break;
+			}
+		}
+		
+		
+	}
+	
+	// FUNCTIONS countDecimalPlaces AND formatNumber NOT BEIGN USED
 	public boolean hasPoint(String number) {
 		char[] numberArray = number.toCharArray();
 		for(char i:numberArray) {
@@ -454,7 +423,7 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 	public int countDecimalPlaces(String number) {
 		if(hasPoint(number)) {
 			char[] numberArray = number.toCharArray();
-			int pointIndex = 0;
+			//int pointIndex = 0;
 			for(int i = 0;i<numberArray.length;i++) {
 				if(numberArray[i] == '.') {
 					
@@ -467,8 +436,27 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 	public void setOperation(String op) {
 		number2 = 0;
 		operation = op;
-		previousNumberString = calcioPanel.numberScreen.numberLabel.getText();
-		calcioPanel.numberScreen.numberLabel.setText("");
+		previousNumberString = calcioPanel.numberScreen.numberToDisplay;
+		calcioPanel.numberScreen.numberToDisplay = "";
+		calcioPanel.numberScreen.cleanScreen();
+	}
+	
+	public void clickNumButton(String number) {
+		if(!equalsPressed) {
+			if(calcioPanel.numberScreen.numberToDisplay != "0") {
+				calcioPanel.numberScreen.numberToDisplay += number;
+				drawNumbers(calcioPanel.numberScreen.numberToDisplay);
+			}else {
+				calcioPanel.numberScreen.numberToDisplay = number;
+				drawNumbers(calcioPanel.numberScreen.numberToDisplay);
+			}
+		}else if(equalsPressed) {
+			calcioPanel.numberScreen.cleanScreen();
+			calcioPanel.numberScreen.numberToDisplay = number;
+			drawNumbers(calcioPanel.numberScreen.numberToDisplay);
+		}
+		equalsPressed = false;
+		
 	}
 	
 	
