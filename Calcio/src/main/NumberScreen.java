@@ -42,16 +42,17 @@ public class NumberScreen extends JPanel{
 	
 	BufferedImage oneImage, twoImage, threeImage,
 		fourImage, fiveImage, sixImage, sevenImage,
-		eightImage, nineImage, zeroImage, pointImage;
+		eightImage, nineImage, zeroImage, pointImage,
+		minusImage;
 	
 	ImageIcon oneIcon, twoIcon, threeIcon, fourIcon,
 		fiveIcon, sixIcon, sevenIcon, eightIcon, nineIcon,
-		zeroIcon, pointIcon;
+		zeroIcon, pointIcon, minusIcon;
 	
 	NumberScreen(CalcioPanel calcioPanel){
 		this.calcioPanel = calcioPanel;
-		this.setBounds(20, 20, WIDTH, HEIGHT);
-		this.setBackground(new Color(0,0,0,0));
+		this.setBounds(20, 40, WIDTH, HEIGHT);
+		this.setBackground(Color.red);
 		this.setOpaque(false);
 		this.setLayout(null);
 		
@@ -99,6 +100,9 @@ public class NumberScreen extends JPanel{
 		case '.':
 			labelArray[pos].setIcon(pointIcon);
 			break;
+		case '-':
+			labelArray[pos].setIcon(minusIcon);
+			break;
 		}
 	}
 	
@@ -139,6 +143,9 @@ public class NumberScreen extends JPanel{
 			pointImage = ImageIO.read(getClass().getResourceAsStream("/img/point.png"));
 			pointIcon = new ImageIcon(pointImage);
 			
+			minusImage = ImageIO.read(getClass().getResourceAsStream("/img/minus.png"));
+			minusIcon = new ImageIcon(minusImage);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -149,16 +156,16 @@ public class NumberScreen extends JPanel{
 		for(int i = 0; i<labelArray.length;i++) {
 			labelArray[i] = new JLabel();
 			labelArray[i].setBounds(coordArray[i],0,25,40);
-			labelArray[i].setOpaque(true);
+			labelArray[i].setOpaque(false);
 			this.add(labelArray[i]);
 			
 		}
 		
 	}
 	public void cleanScreen() {
-		for(int i = 0; i<labelArray.length;i++) {
-			labelArray[i].setIcon(null);
-			
+		
+		for(JLabel label : labelArray) {
+			label.setIcon(null);
 		}
 	}
 	
