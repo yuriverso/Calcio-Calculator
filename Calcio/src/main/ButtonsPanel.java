@@ -33,12 +33,12 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 	String operation;
 	public CalcioPanel calcioPanel;
 	int sumCounter = 0;
-	BufferedImage button0Image, button0PressedImage, button1Image, button1PressedImage,
-				  buttonCImage, buttonPercentageImage, buttonMImage, buttonBackspaceImage, buttonDivisionImage;
+	
+	CalcioPainter calcioPainter;
 	
 	CalcioButton button1, button2, button3, button4,
 				 button5, button6, button7, button8,
-				 button9, button0, buttonPoint,
+				 button9, button0, buttonComma,
 				 buttonPlus, buttonMinus, buttonTimes,
 				 buttonDivision, buttonEquals, buttonPercentage,
 				 buttonSqrt, buttonPow, buttonInverse,
@@ -48,47 +48,32 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 	
 	ButtonsPanel(CalcioPanel calcioPanel){
 		this.calcioPanel = calcioPanel;
+		calcioPainter = new CalcioPainter(calcioPanel, this);
+		
 		
 		previousNumberString = calcioPanel.numberScreen.numberToDisplay;
 		markNumberString = "0";
 		
-		this.setBounds(20, 80, WIDTH, HEIGHT);
+		this.setBounds(20, 110, WIDTH, HEIGHT);
 		this.setLayout(null);
 		this.setOpaque(false);
-		//this.setBorder(BorderFactory.createLineBorder(Color.black));
+		this.setBorder(null);
 		
-		loadImages();
 		createColorButtons();
 		createFunctionalButtons();
 		createNumberButtons();
 		createOperationalButtons();
+		calcioPainter.paintButtons();
 		
 	}
 	
-	
-	public void loadImages() {
-		try {
-			// spaces are 20% of the image width
-			button0Image = ImageIO.read(getClass().getResourceAsStream("/img/button_0.png"));
-			button0PressedImage = ImageIO.read(getClass().getResourceAsStream("/img/button_0_pressed.png"));
-			button1Image = ImageIO.read(getClass().getResourceAsStream("/img/1_no_click.png"));
-			button1PressedImage = ImageIO.read(getClass().getResourceAsStream("/img/1_click.png"));
-			buttonCImage = ImageIO.read(getClass().getResourceAsStream("/img/c_noclick3.png"));
-			buttonPercentageImage = ImageIO.read(getClass().getResourceAsStream("/img/small_b_test.png"));
-			buttonMImage = ImageIO.read(getClass().getResourceAsStream("/img/m_noclick.png"));
-			buttonBackspaceImage = ImageIO.read(getClass().getResourceAsStream("/img/backspace_noclick.png"));
-			buttonDivisionImage = ImageIO.read(getClass().getResourceAsStream("/img/div_noclick.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public void createFunctionalButtons() {
 		// first line of buttons
 		//clear button
 		buttonC = new CalcioButton(this, "C");
 		buttonC.setBounds(15,70,55,55);
-		ImageIcon imageC =new ImageIcon(buttonCImage);
+		//ImageIcon imageC =new ImageIcon(buttonCImage);
 		//buttonC.setIcon(imageC);
 		//ImageIcon imagePressed1 = new ImageIcon(button1PressedImage);
 		//button1.setPressedIcon(imagePressed1);
@@ -97,8 +82,7 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		//backspace button
 		buttonBackspace = new CalcioButton(this, "<-");
 		buttonBackspace.setBounds(125, 70, 55, 55);
-		ImageIcon imageBackspace =new ImageIcon(buttonCImage);
-		//buttonBackspace.setIcon(imageBackspace);
+
 		
 		//equals button
 		buttonEquals = new CalcioButton(this, "=");
@@ -107,8 +91,7 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		//mark button
 		buttonMark = new CalcioButton(this, "M");
 		buttonMark.setBounds(70,70,55,55);
-		ImageIcon imageM =new ImageIcon(buttonCImage);
-		//buttonMark.setIcon(imageM);
+
 	}
 	
 	public void createNumberButtons() {
@@ -157,11 +140,10 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		button0 = new CalcioButton(this, "0");
 		button0.setLayout(new BorderLayout());
 		button0.setBounds(15, 290, 110, 55);
-		ImageIcon image0 =new ImageIcon(button0Image);
-		//button0.setIcon(image0);
+
 		
-		buttonPoint = new CalcioButton(this, ".");
-		buttonPoint.setBounds(125, 290, 55, 55);
+		buttonComma = new CalcioButton(this, ".");
+		buttonComma.setBounds(125, 290, 55, 55);
 	}
 	
 	public void createOperationalButtons(){
@@ -182,15 +164,13 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		// division button
 		buttonDivision = new CalcioButton(this, "/");
 		buttonDivision.setBounds(180, 70, 55, 55);
-		ImageIcon imageDivision =new ImageIcon(buttonDivisionImage);
-		buttonDivision.setIcon(imageDivision);
+
 		
 		//buttonPercentage, buttonSqrt, buttonPow,buttonInverse,
 		// percentage button
 		buttonPercentage = new CalcioButton(this, "%");
 		buttonPercentage.setBounds(20, 35, 46, 31);
-		//ImageIcon imagePercentage =new ImageIcon(buttonPercentageImage);
-		//buttonPercentage.setIcon(imagePercentage);
+
 		
 		// square root button
 		buttonSqrt = new CalcioButton(this, "sqrt");
@@ -206,10 +186,10 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 	public void createColorButtons() {
 		//the tiny color buttons
 		//white button
-		buttonWhite = new CalcioButton(this, null);
+		buttonWhite = new CalcioButton(this, "white");
 		buttonWhite.setBounds(18,18,9,9);
 		//black button
-		buttonBlack = new CalcioButton(this, null);
+		buttonBlack = new CalcioButton(this, "black");
 		buttonBlack.setBounds(33,18,9,9);
 		//blue button
 		buttonBlue = new CalcioButton(this, null);
@@ -227,11 +207,14 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		CalcioButton[] numButtons = {button1, button2, button3,
 				button4, button5, button6, button7, button8,
-				button9, button0, buttonPoint};
+				button9, button0, buttonComma};
 		
 		CalcioButton[] opButtons = {buttonPlus, buttonMinus, buttonTimes,
 				buttonDivision, buttonPercentage, buttonSqrt,
 				buttonPow, buttonInverse};
+		
+		CalcioButton[] colorButtons = {buttonWhite, buttonBlack, buttonBlue,
+				 buttonPurple, buttonYellow};
 		
 		// listen to number buttons
 		for(CalcioButton b:numButtons) {
@@ -247,6 +230,15 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 
 			}
 		}
+		
+		for(CalcioButton b : colorButtons) {
+			if(e.getSource() == b) {
+				System.out.println(b.text);
+				calcioPainter.loadImages(b.text);
+				calcioPainter.paintBg();
+				calcioPainter.paintButtons();
+			}
+		}
 
 		// square root
 		/*if(e.getSource() == buttonSqrt && calcioPanel.numberScreen.numberToDisplay != "") {
@@ -257,9 +249,8 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		// listen to functional buttons
 		if (e.getSource() == buttonC) {
 			if(calcioPanel.numberScreen.numberToDisplay != "0") {
-				calcioPanel.numberScreen.cleanScreen();
 				calcioPanel.numberScreen.numberToDisplay = "0";
-				drawNumbers("0");
+				calcioPanel.numberScreen.displayLabel.setText(calcioPanel.numberScreen.numberToDisplay);
 				previousNumberString = "0";
 				number1 = 0;
 				number2 = 0;
@@ -270,9 +261,8 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 				markNumberString = calcioPanel.numberScreen.numberToDisplay;
 			}else {
 				calcioPanel.numberScreen.numberToDisplay = markNumberString;
+				calcioPanel.numberScreen.displayLabel.setText(calcioPanel.numberScreen.numberToDisplay);
 				markNumberString = "0";
-				calcioPanel.numberScreen.cleanScreen();
-				drawNumbers(calcioPanel.numberScreen.numberToDisplay);
 			}
 			
 		}
@@ -281,18 +271,16 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 				String number = calcioPanel.numberScreen.numberToDisplay;
 				String number2 = "";
 				for(int i = 0; i<number.length()-1; i++) {
-					if(i<9) {
+					if(i<calcioPanel.numberScreen.displayLength-1) {
 						number2 += number.charAt(i);
 					}
 					
 				}
 				calcioPanel.numberScreen.numberToDisplay = number2;
-				calcioPanel.numberScreen.cleanScreen();
-				drawNumbers(number2);
+				calcioPanel.numberScreen.displayLabel.setText(calcioPanel.numberScreen.numberToDisplay);
 				if(calcioPanel.numberScreen.numberToDisplay == "") {
 					calcioPanel.numberScreen.numberToDisplay = "0";
-					calcioPanel.numberScreen.cleanScreen();
-					drawNumbers("0");
+					calcioPanel.numberScreen.displayLabel.setText(calcioPanel.numberScreen.numberToDisplay);
 				}
 				
 			}
@@ -366,77 +354,20 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 					// to double and then to string
 					calcioPanel.numberScreen.numberToDisplay = displayNumber;
 					System.out.println(calcioPanel.numberScreen.numberToDisplay);
-					calcioPanel.numberScreen.cleanScreen();
-					drawNumbers(displayNumber);
+					calcioPanel.numberScreen.displayLabel.setText(prepareNumber(displayNumber));
+					
 				}
 				
 			}
+			
+			
 			
 		}
 		
 	}
 	
 	
-	public void drawNumbers(String number) {
-		char[] numberArray = number.toCharArray();
-		for(int i = 0;i<numberArray.length;i++) {
-			if(i<10) {
-				calcioPanel.numberScreen.paintNumber(numberArray[i], i);
-			}
-			else {
-				break;
-			}
-		}
 		
-		
-	}
-	
-	// FUNCTIONS countDecimalPlaces AND formatNumber NOT BEIGN USED
-	public boolean hasPoint(String number) {
-		char[] numberArray = number.toCharArray();
-		for(char i:numberArray) {
-			if(i == '.') {
-				return true;
-			}
-		}
-		return false;
-	}
-	public String formatNumber(String number) {
-		int loopCount = 1;
-		int zeroCount = 0;
-		String number2 = "";
-		System.out.println(hasPoint(number));
-		if(hasPoint(number)) {
-			char[] numberArray = number.toCharArray();
-			while(true) {
-				if(numberArray[numberArray.length-loopCount] == '0') {
-					zeroCount++;
-				}
-				else {
-					break;
-				}
-				loopCount++;
-			}
-			for(int i = 0;i<numberArray.length-zeroCount;i++) {
-				number2+=numberArray[i];
-			}
-			return number2;
-		}
-		return number;
-	}
-	public int countDecimalPlaces(String number) {
-		if(hasPoint(number)) {
-			char[] numberArray = number.toCharArray();
-			//int pointIndex = 0;
-			for(int i = 0;i<numberArray.length;i++) {
-				if(numberArray[i] == '.') {
-					
-				}
-			}
-		}
-		return 0;
-	}
-	
 	public void setOperation(String op) {
 		if(op == "-" && calcioPanel.numberScreen.numberToDisplay == "0") {
 			clickNumButton("-");
@@ -446,7 +377,6 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 			operation = op;
 			previousNumberString = calcioPanel.numberScreen.numberToDisplay;
 			calcioPanel.numberScreen.numberToDisplay = "";
-			calcioPanel.numberScreen.cleanScreen();
 		}
 		
 	}
@@ -456,25 +386,86 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 			if(calcioPanel.numberScreen.numberToDisplay != "0" 
 					&& calcioPanel.numberScreen.numberToDisplay.toCharArray().length < 10) {
 				calcioPanel.numberScreen.numberToDisplay += number;
-				drawNumbers(calcioPanel.numberScreen.numberToDisplay);
+				calcioPanel.numberScreen.displayLabel.setText(prepareNumber(calcioPanel.numberScreen.numberToDisplay));
 			}else if(calcioPanel.numberScreen.numberToDisplay.toCharArray().length < 10){
 				if(number == ".") {
 					calcioPanel.numberScreen.numberToDisplay += number;
-					drawNumbers(calcioPanel.numberScreen.numberToDisplay);
+					calcioPanel.numberScreen.displayLabel.setText(prepareNumber(calcioPanel.numberScreen.numberToDisplay));
+					
 				}
 
 				else {
 					calcioPanel.numberScreen.numberToDisplay = number;
-					drawNumbers(calcioPanel.numberScreen.numberToDisplay);
+					calcioPanel.numberScreen.displayLabel.setText(prepareNumber(calcioPanel.numberScreen.numberToDisplay));
 				}
 				
 			}
 		}else if(equalsPressed) {
-			calcioPanel.numberScreen.cleanScreen();
 			calcioPanel.numberScreen.numberToDisplay = number;
-			drawNumbers(calcioPanel.numberScreen.numberToDisplay);
+			calcioPanel.numberScreen.displayLabel.setText(prepareNumber(calcioPanel.numberScreen.numberToDisplay));
 		}
 		equalsPressed = false;
+		
+	}
+	
+	public String formatNumber(String number) {
+		char[] numberArray = number.toCharArray();
+		String number2 = "";
+		if(numberArray.length > 9) {
+			for(int i = 0; i < 10; i++) {
+				number2 += numberArray[i];
+			}
+			return number2;
+		}else {
+			return number;
+		}
+	}
+	
+	public String prepareNumber(String number) {
+		
+		number = number.replace(".", ",");
+		String integerPart = "";
+		String decimalPart = "";
+		String preparedNumber = "";
+		char[] numberArray = {};
+		int tCount = 0;
+		
+		
+		if(number.contains(",") && number.charAt(number.length()-1) != ',') {
+			integerPart = number.split(",")[0];
+			decimalPart = number.split(",")[1];
+		}else if(number.contains(",") && number.charAt(number.length()-1) == ',' && number.length() > 1) {
+			integerPart = number.split(",")[0];
+			decimalPart = ",";
+		}else if(!number.contains(",")) {
+			integerPart = number;
+		}else if(number.contains(",") && number.length() == 1) {
+			return "0,";
+		}
+		numberArray = integerPart.toCharArray();
+		
+		for(int i = 0; i < numberArray.length; i++) {
+			if(tCount == 3) {
+				preparedNumber += ".";
+				tCount = 0;
+			}
+			preparedNumber += numberArray[(numberArray.length-1)-i];
+			tCount ++;
+			
+		}
+		numberArray = preparedNumber.toCharArray();
+		preparedNumber = "";
+		for(int i = 0;i < numberArray.length; i++) {
+			preparedNumber += numberArray[(numberArray.length-1)-i];
+		}
+		if(decimalPart != "" && decimalPart != ",") {
+			preparedNumber = preparedNumber+","+decimalPart;
+			return formatNumber(preparedNumber);
+		}else {
+			preparedNumber += decimalPart;
+			return formatNumber(preparedNumber);
+		}
+		
 		
 	}
 	

@@ -22,151 +22,43 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 public class NumberScreen extends JPanel{
 	
 	final int WIDTH = 250;
 	final int HEIGHT = 50;
-
+	
+	final int displayLength = 10;
 	String numberToDisplay;
 	public CalcioPanel calcioPanel;
-	
-	int[] coordArray = {0,25,50,75,100,125,150,175,200,225,250};
-	
-	public JLabel label0, label1, label2, label3,
-	label4, label5, label6, label7, label8, label9, label10;
-	
-	public JLabel[] labelArray = {label0, label1, label2, label3,
-			label4, label5, label6, label7, label8, label9, label10}; 
-	
-	BufferedImage oneImage, twoImage, threeImage,
-		fourImage, fiveImage, sixImage, sevenImage,
-		eightImage, nineImage, zeroImage, pointImage,
-		minusImage;
-	
-	ImageIcon oneIcon, twoIcon, threeIcon, fourIcon,
-		fiveIcon, sixIcon, sevenIcon, eightIcon, nineIcon,
-		zeroIcon, pointIcon, minusIcon;
+	public JLabel displayLabel;
 	
 	NumberScreen(CalcioPanel calcioPanel){
 		this.calcioPanel = calcioPanel;
-		this.setBounds(20, 40, WIDTH, HEIGHT);
+		this.setBounds(40, 70, WIDTH, HEIGHT);
 		this.setBackground(Color.red);
 		this.setOpaque(false);
 		this.setLayout(null);
 		
-		loadImages();
-		createNumericLabels();
-		paintNumber('0',0);
-		
 		numberToDisplay = "0";
-		
+		setDisplayLabel();	
 	}	
-
 	
-	public void paintNumber(char num, int pos) {
-		switch(num) {
-		case '0':
-			labelArray[pos].setIcon(zeroIcon);
-			break;
-		case '1':
-			labelArray[pos].setIcon(oneIcon);
-			break;
-		case '2':
-			labelArray[pos].setIcon(twoIcon);
-			break;
-		case '3':
-			labelArray[pos].setIcon(threeIcon);
-			break;
-		case '4':
-			labelArray[pos].setIcon(fourIcon);
-			break;
-		case '5':
-			labelArray[pos].setIcon(fiveIcon);
-			break;
-		case '6':
-			labelArray[pos].setIcon(sixIcon);
-			break;
-		case '7':
-			labelArray[pos].setIcon(sevenIcon);
-			break;
-		case '8':
-			labelArray[pos].setIcon(eightIcon);
-			break;
-		case '9':
-			labelArray[pos].setIcon(nineIcon);
-			break;
-		case '.':
-			labelArray[pos].setIcon(pointIcon);
-			break;
-		case '-':
-			labelArray[pos].setIcon(minusIcon);
-			break;
-		}
-	}
-	
-	public void loadImages() {
-		
+	public void setDisplayLabel() {
 		try {
-			
-			oneImage = ImageIO.read(getClass().getResourceAsStream("/img/one.png"));
-			oneIcon = new ImageIcon(oneImage);
-			
-			twoImage = ImageIO.read(getClass().getResourceAsStream("/img/two.png"));
-			twoIcon = new ImageIcon(twoImage);
-			
-			threeImage = ImageIO.read(getClass().getResourceAsStream("/img/three.png"));
-			threeIcon = new ImageIcon(threeImage);
-			
-			fourImage = ImageIO.read(getClass().getResourceAsStream("/img/four.png"));
-			fourIcon = new ImageIcon(fourImage);
-			
-			fiveImage = ImageIO.read(getClass().getResourceAsStream("/img/five.png"));
-			fiveIcon = new ImageIcon(fiveImage);
-			
-			sixImage = ImageIO.read(getClass().getResourceAsStream("/img/six.png"));
-			sixIcon = new ImageIcon(sixImage);
-			
-			sevenImage = ImageIO.read(getClass().getResourceAsStream("/img/seven.png"));
-			sevenIcon = new ImageIcon(sevenImage);
-			
-			eightImage = ImageIO.read(getClass().getResourceAsStream("/img/eight.png"));
-			eightIcon = new ImageIcon(eightImage);
-			
-			nineImage = ImageIO.read(getClass().getResourceAsStream("/img/nine.png"));
-			nineIcon = new ImageIcon(nineImage);
-			
-			zeroImage = ImageIO.read(getClass().getResourceAsStream("/img/zero.png"));
-			zeroIcon = new ImageIcon(zeroImage);
-			
-			pointImage = ImageIO.read(getClass().getResourceAsStream("/img/point.png"));
-			pointIcon = new ImageIcon(pointImage);
-			
-			minusImage = ImageIO.read(getClass().getResourceAsStream("/img/minus.png"));
-			minusIcon = new ImageIcon(minusImage);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void createNumericLabels() {
-		for(int i = 0; i<labelArray.length;i++) {
-			labelArray[i] = new JLabel();
-			labelArray[i].setBounds(coordArray[i],0,25,40);
-			labelArray[i].setOpaque(false);
-			this.add(labelArray[i]);
-			
-		}
-		
-	}
-	public void cleanScreen() {
-		
-		for(JLabel label : labelArray) {
-			label.setIcon(null);
-		}
+			Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/arialr.ttf"));
+			displayLabel = new JLabel(numberToDisplay);
+			displayLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+			displayLabel.setBounds(5, 5, 200, 45);
+			displayLabel.setForeground(Color.PINK);
+			//displayLabel.setBorder(BorderFactory.createLineBorder(Color.black));
+			displayLabel.setFont(font.deriveFont(Font.BOLD, 40f));
+            add(displayLabel);
+        } catch (FontFormatException | IOException ex) {
+            ex.printStackTrace();
+        }
 	}
 	
 }

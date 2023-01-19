@@ -16,11 +16,11 @@ public class CalcioButton extends JButton{
 		this.text = text;
 		
 		Border bBorder = BorderFactory.createLineBorder(Color.black);
-		this.setBorder(bBorder);
+		this.setBorder(null);
 		this.setFocusable(false);
 		this.setOpaque(false);
 		this.setBackground(new Color(0,0,0,0));
-		this.setText(text);
+		this.setText(null);
 		this.setForeground(Color.red);
 		this.setContentAreaFilled(false);
 		
