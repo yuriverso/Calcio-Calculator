@@ -1,11 +1,9 @@
 package main;
 
-import java.awt.Color;
-
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.border.Border;
 
+
+// a extension of the JButton class with all the needed configurations
 public class CalcioButton extends JButton{
 	
 	ButtonsPanel panel;
@@ -15,13 +13,10 @@ public class CalcioButton extends JButton{
 		this.panel = panel;
 		this.text = text;
 		
-		Border bBorder = BorderFactory.createLineBorder(Color.black);
 		this.setBorder(null);
 		this.setFocusable(false);
 		this.setOpaque(false);
-		this.setBackground(new Color(0,0,0,0));
 		this.setText(null);
-		this.setForeground(Color.red);
 		this.setContentAreaFilled(false);
 		
 		panel.add(this);

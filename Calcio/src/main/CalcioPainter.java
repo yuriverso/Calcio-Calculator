@@ -1,14 +1,13 @@
 package main;
 
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+
+// class responsible for painting the buttons and background
 public class CalcioPainter {
 	
 	CalcioPanel cPanel;
@@ -16,43 +15,42 @@ public class CalcioPainter {
 	
 	JLabel calcioIconLabel;
 	
-	BufferedImage nullImage, null2Image, backgroundImage, iconImage, zeroImage, zeroClickedImage,
-				  oneImage, oneClickedImage,
-				  twoImage, twoClickedImage, threeImage, threeClickedImage, fourImage,
-				  fourClickedImage, fiveImage, fiveClickedImage, sixImage, sixClickedImage, sevenImage,
-				  sevenClickedImage, eightImage, eightClickedImage, nineImage, nineClickedImage, commaImage,
-				  commaClickedImage, plusImage, plusClickedImage, minusImage, minusClickedImage, timesImage,
-				  timesClickedImage, divisionImage, divisionClickedImage, equalsImage, equalsClickedImage, cImage,
-				  cClickedImage, markImage, markClickedImage, backspaceImage, backspaceClickedImage, percentageClickedImage,
-				  sqrtClickedImage, powClickedImage, invClickedImage, closeClickedImage, minimizeClickedImage;
+	// declaring all images to be loaded
+	BufferedImage nullImage, null2Image, backgroundImage, zeroImage, zeroClickedImage,
+				  oneImage, oneClickedImage, twoImage, twoClickedImage, threeImage,
+				  threeClickedImage, fourImage, fourClickedImage, fiveImage, fiveClickedImage,
+				  sixImage, sixClickedImage, sevenImage, sevenClickedImage, eightImage, 
+				  eightClickedImage, nineImage, nineClickedImage, commaImage, commaClickedImage,
+				  plusImage, plusClickedImage, minusImage, minusClickedImage, timesImage, 
+				  timesClickedImage, divisionImage, divisionClickedImage, equalsImage, 
+				  equalsClickedImage, cImage, cClickedImage, markImage, markClickedImage, 
+				  backspaceImage, backspaceClickedImage, percentageClickedImage, sqrtClickedImage,
+				  powClickedImage, invClickedImage, closeClickedImage, minimizeClickedImage;
 	
-	ImageIcon nullIcon, null2Icon, backgroundIcon, iconIcon, zeroIcon, zeroClickedIcon,
-	  oneIcon, oneClickedIcon,
-	  twoIcon, twoClickedIcon, threeIcon, threeClickedIcon, fourIcon,
-	  fourClickedIcon, fiveIcon, fiveClickedIcon, sixIcon, sixClickedIcon, sevenIcon,
-	  sevenClickedIcon, eightIcon, eightClickedIcon, nineIcon, nineClickedIcon, commaIcon,
-	  commaClickedIcon, plusIcon, plusClickedIcon, minusIcon, minusClickedIcon, timesIcon,
-	  timesClickedIcon, divisionIcon, divisionClickedIcon, equalsIcon, equalsClickedIcon, cIcon,
-	  cClickedIcon, markIcon, markClickedIcon, backspaceIcon, backspaceClickedIcon, percentageClickedIcon,
-	  sqrtClickedIcon, powClickedIcon, invClickedIcon, closeClickedIcon, minimizeClickedIcon;
+	// declaring all icons to be created with the loaded images
+	ImageIcon nullIcon, null2Icon, backgroundIcon, zeroIcon, zeroClickedIcon, oneIcon,
+			  oneClickedIcon, twoIcon, twoClickedIcon, threeIcon, threeClickedIcon, fourIcon,
+			  fourClickedIcon, fiveIcon, fiveClickedIcon, sixIcon, sixClickedIcon, sevenIcon,
+			  sevenClickedIcon, eightIcon, eightClickedIcon, nineIcon, nineClickedIcon, commaIcon,
+			  commaClickedIcon, plusIcon, plusClickedIcon, minusIcon, minusClickedIcon, timesIcon,
+			  timesClickedIcon, divisionIcon, divisionClickedIcon, equalsIcon, equalsClickedIcon,
+			  cIcon, cClickedIcon, markIcon, markClickedIcon, backspaceIcon, backspaceClickedIcon,
+			  percentageClickedIcon, sqrtClickedIcon, powClickedIcon, invClickedIcon, closeClickedIcon,
+			  minimizeClickedIcon;
 	
 	CalcioPainter(CalcioPanel cPanel, ButtonsPanel bPanel){
 		this.cPanel = cPanel;
 		this.bPanel = bPanel;
 		loadImages("black");
-		
-		Image smallImage = iconImage.getScaledInstance(20,20, Image.SCALE_FAST);
-		iconIcon = new ImageIcon(smallImage);
-		calcioIconLabel = new JLabel();
-		calcioIconLabel.setBounds(5,5,20,20);
-		calcioIconLabel.setIcon(iconIcon);
-		cPanel.add(calcioIconLabel);
 	}
+	
+	// method to paint background
 	public void paintBg() {
 		backgroundIcon = new ImageIcon(backgroundImage);
 		cPanel.backgroundLabel.setIcon(backgroundIcon);
 	}
 	
+	// method to paint buttons
 	public void paintButtons() {
 		nullIcon = new ImageIcon(nullImage);
 		null2Icon = new ImageIcon(null2Image);
@@ -79,14 +77,14 @@ public class CalcioPainter {
 		bPanel.button1.setPressedIcon(oneClickedIcon);
 		
 		twoIcon = new ImageIcon(twoImage);
-		zeroClickedIcon = new ImageIcon(twoClickedImage);
+		twoClickedIcon = new ImageIcon(twoClickedImage);
 		bPanel.button2.setIcon(twoIcon);
-		bPanel.button2.setPressedIcon(zeroClickedIcon);
+		bPanel.button2.setPressedIcon(twoClickedIcon);
 		
 		threeIcon = new ImageIcon(threeImage);
 		threeClickedIcon = new ImageIcon(threeClickedImage);
 		bPanel.button3.setIcon(threeIcon);
-		bPanel.button3.setPressedIcon(zeroClickedIcon);
+		bPanel.button3.setPressedIcon(threeClickedIcon);
 		
 		fourIcon = new ImageIcon(fourImage);
 		fourClickedIcon = new ImageIcon(fourClickedImage);
@@ -186,11 +184,11 @@ public class CalcioPainter {
 		
 	}
 	
+	// method to load all the needed images
 	public void loadImages(String color) {
 		try {
-			nullImage = ImageIO.read(getClass().getResourceAsStream("/img/"+color+"/null.png"));
-			null2Image = ImageIO.read(getClass().getResourceAsStream("/img/"+color+"/null2.png"));
-			iconImage = ImageIO.read(getClass().getResourceAsStream("/img/"+color+"/calcio_icon.png"));
+			nullImage = ImageIO.read(getClass().getResourceAsStream("/img/null.png"));
+			null2Image = ImageIO.read(getClass().getResourceAsStream("/img/null2.png"));
 			backgroundImage = ImageIO.read(getClass().getResourceAsStream("/img/"+color+"/background.png"));
 			zeroImage = ImageIO.read(getClass().getResourceAsStream("/img/"+color+"/zero.png"));
 			zeroClickedImage = ImageIO.read(getClass().getResourceAsStream("/img/"+color+"/zero_clicked.png"));

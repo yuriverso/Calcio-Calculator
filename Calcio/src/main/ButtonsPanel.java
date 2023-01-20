@@ -2,40 +2,27 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultButtonModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
-public class ButtonsPanel extends JPanel implements ActionListener{
+
+// This panel is going to receive all of the Calcio Calculator buttons and operate with them
+public class ButtonsPanel extends JPanel implements ActionListener {
 	
 	final int WIDTH = 250;
 	final int HEIGHT = 350;
+	
+	double number1, number2;
+	
+	String operation;
 	public String previousNumberString;
 	public String markNumberString;
+	
 	boolean equalsPressed = false;
-	double number1, number2;
-	String operation;
+	
 	public CalcioPanel calcioPanel;
-	int sumCounter = 0;
-	
 	CalcioPainter calcioPainter;
-	
 	CalcioButton button1, button2, button3, button4,
 				 button5, button6, button7, button8,
 				 button9, button0, buttonComma,
@@ -44,12 +31,11 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 				 buttonSqrt, buttonPow, buttonInverse,
 				 buttonC, buttonBackspace, buttonMark,
 				 buttonWhite, buttonBlack, buttonBlue,
-				 buttonPurple, buttonYellow;
+				 buttonPink, buttonPurple;
 	
 	ButtonsPanel(CalcioPanel calcioPanel){
 		this.calcioPanel = calcioPanel;
 		calcioPainter = new CalcioPainter(calcioPanel, this);
-		
 		
 		previousNumberString = calcioPanel.numberScreen.numberToDisplay;
 		markNumberString = "0";
@@ -59,10 +45,12 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		this.setOpaque(false);
 		this.setBorder(null);
 		
+		// method that will create the calculator buttons
 		createColorButtons();
 		createFunctionalButtons();
 		createNumberButtons();
 		createOperationalButtons();
+		// method that will paint them
 		calcioPainter.paintButtons();
 		
 	}
@@ -73,11 +61,6 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		//clear button
 		buttonC = new CalcioButton(this, "C");
 		buttonC.setBounds(15,70,55,55);
-		//ImageIcon imageC =new ImageIcon(buttonCImage);
-		//buttonC.setIcon(imageC);
-		//ImageIcon imagePressed1 = new ImageIcon(button1PressedImage);
-		//button1.setPressedIcon(imagePressed1);
-		//button1.setIcon(image1);
 				
 		//backspace button
 		buttonBackspace = new CalcioButton(this, "<-");
@@ -121,16 +104,9 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		//1 to 3
 		button1 = new CalcioButton(this, "1");
 		button1.setBounds(15, 235, 55, 55); 
-		//ImageIcon image1 =new ImageIcon(button1Image);
-		//button1.setIcon(image1);
-		//ImageIcon imagePressed1 = new ImageIcon(button1PressedImage);
-		//button1.setPressedIcon(imagePressed1);
-		//button1.setIcon(image1);
 		
 		button2 = new CalcioButton(this, "2");
 		button2.setBounds(70, 235, 55, 55);
-		//button2.setIcon(image1);
-		//button2.setPressedIcon(imagePressed1);
 		
 		button3 = new CalcioButton(this, "3");
 		button3.setBounds(125, 235, 55, 55);
@@ -138,10 +114,8 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		//sixth line of buttons
 		// 0 and comma
 		button0 = new CalcioButton(this, "0");
-		button0.setLayout(new BorderLayout());
 		button0.setBounds(15, 290, 110, 55);
 
-		
 		buttonComma = new CalcioButton(this, ".");
 		buttonComma.setBounds(125, 290, 55, 55);
 	}
@@ -149,7 +123,6 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 	public void createOperationalButtons(){
 		//second line of buttons
 		//percentage, square root, and power buttons
-		
 		
 		//last column of buttons
 		// minus button
@@ -170,8 +143,6 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		// percentage button
 		buttonPercentage = new CalcioButton(this, "%");
 		buttonPercentage.setBounds(20, 35, 46, 31);
-
-		
 		// square root button
 		buttonSqrt = new CalcioButton(this, "sqrt");
 		buttonSqrt.setBounds(75, 35, 46, 31);
@@ -187,34 +158,34 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		//the tiny color buttons
 		//white button
 		buttonWhite = new CalcioButton(this, "white");
-		buttonWhite.setBounds(18,18,9,9);
+		buttonWhite.setBounds(153,18,9,9);
 		//black button
 		buttonBlack = new CalcioButton(this, "black");
-		buttonBlack.setBounds(33,18,9,9);
+		buttonBlack.setBounds(168,18,9,9);
 		//blue button
-		buttonBlue = new CalcioButton(this, null);
-		buttonBlue.setBounds(48,18,9,9);
+		buttonBlue = new CalcioButton(this, "blue");
+		buttonBlue.setBounds(183,18,9,9);
 		//purple button
-		buttonPurple = new CalcioButton(this, null);
-		buttonPurple.setBounds(63,18,9,9);
+		buttonPink = new CalcioButton(this, "pink");
+		buttonPink.setBounds(198,18,9,9);
 		//yellow button
-		buttonYellow = new CalcioButton(this, null);
-		buttonYellow.setBounds(78,18,9,9);
+		buttonPurple = new CalcioButton(this, "purple");
+		buttonPurple.setBounds(213,18,9,9);
 	}
 	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		CalcioButton[] numButtons = {button1, button2, button3,
-				button4, button5, button6, button7, button8,
-				button9, button0, buttonComma};
+									 button4, button5, button6, button7, button8,
+									 button9, button0, buttonComma};
 		
 		CalcioButton[] opButtons = {buttonPlus, buttonMinus, buttonTimes,
-				buttonDivision, buttonPercentage, buttonSqrt,
-				buttonPow, buttonInverse};
+									buttonDivision, buttonPercentage, buttonSqrt,
+									buttonPow, buttonInverse};
 		
 		CalcioButton[] colorButtons = {buttonWhite, buttonBlack, buttonBlue,
-				 buttonPurple, buttonYellow};
+				 					   buttonPink, buttonPurple};
 		
 		// listen to number buttons
 		for(CalcioButton b:numButtons) {
@@ -231,20 +202,19 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 			}
 		}
 		
+		// listen to color buttons
 		for(CalcioButton b : colorButtons) {
 			if(e.getSource() == b) {
-				System.out.println(b.text);
+				if(b.text == "white") {
+					calcioPanel.numberScreen.displayLabel.setForeground(Color.decode("#b5bfc6"));
+				}else {
+					calcioPanel.numberScreen.displayLabel.setForeground(Color.decode("#EFF2F9"));
+				}
 				calcioPainter.loadImages(b.text);
 				calcioPainter.paintBg();
 				calcioPainter.paintButtons();
 			}
 		}
-
-		// square root
-		/*if(e.getSource() == buttonSqrt && calcioPanel.numberScreen.numberToDisplay != "") {
-			setOperation("sqrt");
-			buttonEquals.doClick();
-		}*/
 		
 		// listen to functional buttons
 		if (e.getSource() == buttonC) {
@@ -256,6 +226,8 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 				number2 = 0;
 			}
 		}
+		
+		// button "M"
 		if(e.getSource() == buttonMark) {
 			if(markNumberString == "0" || markNumberString == "") {
 				markNumberString = calcioPanel.numberScreen.numberToDisplay;
@@ -266,6 +238,8 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 			}
 			
 		}
+		
+		// backspace button
 		if (e.getSource() == buttonBackspace) {
 			if(calcioPanel.numberScreen.numberToDisplay != "0") {
 				String number = calcioPanel.numberScreen.numberToDisplay;
@@ -350,10 +324,7 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 				}
 				
 				if(displayNumber != "NaN") {
-					//displayNumber = String.format("%.2g%n", number1).replace(',', '.');
-					// to double and then to string
 					calcioPanel.numberScreen.numberToDisplay = displayNumber;
-					System.out.println(calcioPanel.numberScreen.numberToDisplay);
 					calcioPanel.numberScreen.displayLabel.setText(prepareNumber(displayNumber));
 					
 				}
@@ -408,12 +379,22 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		
 	}
 	
+	// function to make big numbers fit the display screen
 	public String formatNumber(String number) {
 		char[] numberArray = number.toCharArray();
 		String number2 = "";
-		if(numberArray.length > 9) {
-			for(int i = 0; i < 10; i++) {
-				number2 += numberArray[i];
+		String ePart = "E";
+		if(numberArray.length > 12) {
+			if(number.contains("E")) {
+				ePart += number.split("E")[1];
+				for(int i = 0; i < 11; i++) {
+					number2 += numberArray[i];
+				}
+				number2 += ePart;
+			}else {
+				for(int i = 0; i < 13; i++) {
+					number2 += numberArray[i];
+				}
 			}
 			return number2;
 		}else {
@@ -421,6 +402,7 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		}
 	}
 	
+	// function that formats the number: puts the "." as thousands separator and "," as decimal separator
 	public String prepareNumber(String number) {
 		
 		number = number.replace(".", ",");
@@ -443,15 +425,31 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 			return "0,";
 		}
 		numberArray = integerPart.toCharArray();
-		
-		for(int i = 0; i < numberArray.length; i++) {
-			if(tCount == 3) {
-				preparedNumber += ".";
-				tCount = 0;
+
+		if(numberArray[0] == '-') {
+			for(int i = 0; i < numberArray.length-1; i++) {
+				if(tCount == 3) {
+					preparedNumber += ".";
+					tCount = 0;
+
+				}
+				preparedNumber += numberArray[(numberArray.length-1)-i];
+				tCount++;
+				
 			}
-			preparedNumber += numberArray[(numberArray.length-1)-i];
-			tCount ++;
-			
+			preparedNumber+='-';
+		}
+		else if(numberArray[0] != '-') {
+			for(int i = 0; i < numberArray.length; i++) {
+				if(tCount == 3) {
+					preparedNumber += ".";
+					tCount = 0;
+
+				}
+				preparedNumber += numberArray[(numberArray.length-1)-i];
+				tCount++;
+				
+			}
 		}
 		numberArray = preparedNumber.toCharArray();
 		preparedNumber = "";

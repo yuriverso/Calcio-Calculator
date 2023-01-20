@@ -3,9 +3,10 @@ package main;
 import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-
 import javax.swing.event.MouseInputAdapter;
 
+
+// class that enables dragging function of the frame
 public class DragListener extends MouseInputAdapter{
 	Point location;
 	MouseEvent pressed;

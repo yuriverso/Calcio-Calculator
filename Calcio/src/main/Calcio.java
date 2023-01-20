@@ -1,27 +1,19 @@
 package main;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JWindow;
 
+
+// Main Calcio class, the frame and main panel are instantiated here
 public class Calcio{
 	
 	public static void main(String[] args) {
+		// instantiating and configuring frame
 		JFrame calcioFrame = new JFrame("Calcio");
 		calcioFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		calcioFrame.setResizable(false);
 		calcioFrame.setUndecorated(true);
 		
+		// instantiating and adding main panel
 		CalcioPanel calcioPanel = new CalcioPanel(calcioFrame);
 		calcioFrame.add(calcioPanel);
 	
@@ -29,6 +21,7 @@ public class Calcio{
 		calcioFrame.setLocationRelativeTo(null);
 		calcioFrame.setVisible(true);
 		
+		// adding dragging function to the frame
 		DragListener dragL = new DragListener();
 		calcioFrame.addMouseListener(dragL);
 		calcioFrame.addMouseMotionListener(dragL);
