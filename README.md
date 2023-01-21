@@ -7,12 +7,11 @@ Calcio, a Calculator Java project
 
   Most of us have the need to do some calculations while driving through this crazy road called life. It is known that the calculators are very helpful in such subject, but calculating is only one of this project's features. Calcio also brings joy while beign fun to use, and for the tired and lazy eyes, a color change is very possible.
 
-  Coding a calculator is a very common thing to do when you are learning a new programming language. However, it is important to say that no lesson, video or tutorial had part in this project, it was completely made by the two coding and designing minds.
+I think it's needless to say how a calculator works or what each of the buttons do, even because calculators exist for quite a long time and coding one is a very common thing to do when you are learning a new programming language. However, it is important to mention that no lesson, video or tutorial had part in this project, it was completely made by the two coding and designing minds.
 
   It is not very complicated to figure out how the programming part of a calculator works, which made its core functionalities to be born with ease. But we wanted something more of it. Yes, it could be simpler, but Calcio itself wanted to be greater than just a lifeless calculator. The color changing idea came as naturally as it could and implementing this function to the project left a desirable and creammy taste in the air.
   
 
-<!--- comentar sobre nunca ter visto vídeos de fazer calculadora, sobre os desafios e sobre os botões que mudam de cor ---!>
 
   Watch this gif example of Calcio doing what it does best.
 
