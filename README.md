@@ -14,10 +14,9 @@ I think it's needless to say how a calculator works or what each of the buttons 
 
 
   Watch this gif example of Calcio doing what it does best.
-
-
-   <p align="center">
-  <img width="290" height="490" src=https://user-images.githubusercontent.com/96660042/213882908-4a189167-7023-476e-8126-a01c29892718.gif>
+  <p align="center">
+  <img width="290" height="490" src=https://user-images.githubusercontent.com/96660042/213895453-86729468-8835-41c6-a671-0f6c99381c85.gif>
   </p>
+
 
 <!--- download link: https://drive.google.com/file/d/1vXGDl0Z2xVVlDsO_LXJoqdVBpSKBHdja/view?usp=sharing ---!>
